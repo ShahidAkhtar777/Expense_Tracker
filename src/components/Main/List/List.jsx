@@ -16,19 +16,7 @@ import { ExpenseTrackerContext } from "../../../context/context";
 
 const List = () => {
   const classes = useStyles();
-  const { deleteTransaction } = useContext(ExpenseTrackerContext);
-
-  const transactions = [
-    { id: 1, type: "Income", category: "Salary", amount: 50, date: "Today" },
-    { id: 2, type: "Expense", category: "Food", amount: 50, date: "Tomorrow" },
-    {
-      id: 3,
-      type: "Income",
-      category: "Business",
-      amount: 150,
-      date: "Yesterday",
-    },
-  ];
+  const { deleteTransaction, transactions } = useContext(ExpenseTrackerContext);
 
   return (
     <MUIList dense={false} className={classes.list}>
@@ -36,7 +24,7 @@ const List = () => {
         <Slide
           direction="down"
           in
-          mountonEnter
+          mountOnEnter
           unmountOnExit
           key={transaction.id}
         >
@@ -57,7 +45,11 @@ const List = () => {
               secondary={`$${transaction.amount} - ${transaction.date}`}
             />
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="delete" onClick="">
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => deleteTransaction(transaction.id)}
+              >
                 <Delete />
               </IconButton>
             </ListItemSecondaryAction>
